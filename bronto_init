@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ -v "${OVERRIDE_URL}" ]]; then
+	wget -O output.zip ${OVERRIDE_URL}
+	mkdir output
+	unzip output.zip -d output
+	
+	find . -name "php.ini" -type f -exec cp {} /etc/php/7.3/fpm/ \;
+	find . -name "nginx.conf" -type f -exec cp {} /etc/nginx/ \;
+	find . -name "www.conf" -type f -exec cp {} /etc/php/7.3/fpm/conf.d/ \;
+
+	rm output.zip
+	rm -rf output
+fi
