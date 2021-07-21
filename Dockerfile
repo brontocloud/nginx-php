@@ -10,7 +10,7 @@ COPY nginx/default /etc/nginx/sites-available/default
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY php/php.ini /etc/php/7.3/fpm/php.ini
 COPY bronto/bronto /bin/bronto
-COPY bronto_init /bin/bronto_init
+COPY bronto/bronto_init /bin/bronto_init
 
 RUN chmod +x /bin/bronto
 RUN chmod +x /bin/bronto_init
