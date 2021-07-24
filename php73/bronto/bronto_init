@@ -6,12 +6,15 @@ if [[ -n "${OVERRIDE_URL}" ]]; then
 	mkdir output
 	unzip output.zip -d output
 	
-	find . -name "php.ini" -type f -exec cp {} /etc/php/7.3/fpm/ \;
-	find . -name "nginx.conf" -type f -exec cp {} /etc/nginx/ \;
-	find . -name "www.conf" -type f -exec cp {} /etc/php/7.3/fpm/conf.d/ \;
-
+	find output/ -name "php.ini" -type f -exec \cp -r {} /etc/php/7.3/fpm/ \;
+	find output/ -name "nginx.conf" -type f -exec \cp -r {} /etc/nginx/ \;
+	find output/ -name "www.conf" -type f -exec \cp -r {} /etc/php/7.3/fpm/conf.d/ \;
+	find output/ -name "default" -type f -exec \cp -r {} /etc/nginx/sites-available/ \;
 	rm output.zip
 	rm -rf output
+
+	service nginx restart
+	service php7.3-fpm restart
 fi
 
 
