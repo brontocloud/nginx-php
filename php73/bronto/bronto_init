@@ -1,6 +1,7 @@
 #!/bin/bash
+rm -rf /var/www/html/lost+found
 
-if [[ -v "${OVERRIDE_URL}" ]]; then
+if [[ -n "${OVERRIDE_URL}" ]]; then
 	wget -O output.zip ${OVERRIDE_URL}
 	mkdir output
 	unzip output.zip -d output
@@ -11,4 +12,20 @@ if [[ -v "${OVERRIDE_URL}" ]]; then
 
 	rm output.zip
 	rm -rf output
+fi
+
+
+if [[ -n "${SOURCE_URL}" ]]; then
+	if [ -z "$(ls -A /var/www/html)" ]; then
+		wget -O source.zip ${SOURCE_URL}
+		mkdir source
+		unzip source.zip -d source
+
+		cp -R source/* /var/www/html/
+
+		rm source.zip
+		rm -rf source
+		chmod -R 775 /var/www/html
+		chown -R www-data:www-data /var/www/html
+	fi
 fi

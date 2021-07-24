@@ -15,4 +15,5 @@ COPY bronto/bronto_init /bin/bronto_init
 RUN chmod +x /bin/bronto
 RUN chmod +x /bin/bronto_init
 
+RUN rm -rf /var/www/html/*
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
